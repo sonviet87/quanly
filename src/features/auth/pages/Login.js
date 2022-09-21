@@ -3,12 +3,14 @@ import Container from '@mui/material/Container';
 import { FormLogin } from '../styles/StyledLogin';
 import LoginForm from '../components/LoginForm';
 import { Grid } from '@mui/material';
+
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getLSItem } from 'utils/localStorage';
 import { setLSItem } from 'utils';
 import { authActions } from '../authSlice';
+import userApi from 'api/userAPI';
 
 
 function Login() {
@@ -47,29 +49,42 @@ function Login() {
             }
         })();
     });
-    const handleSubmit = (formValues) => {
-        //console.log(formValues)
-
-        let flag = 0;
-        arrUser.forEach((item) => {
-            if (item.username === formValues.username && item.password === formValues.password) {
-                flag = item.id;
-            }
-        })
-
-        if (flag) {
-            const data = arrUser[flag - 1];
-
-            setLSItem('access_token', data.accessToken);
-            delete data.accessToken;
-            dispatch(authActions.setRoles(data.roles));
-            delete data.roles;
-            dispatch(authActions.setCurrentUser(data));
-            toast.success('Login successfully!');
+    const handleSubmit = async (formValues) => {
+        const res = await userApi.login({
+            loginName: formValues.email,
+            password: formValues.password,
+        });
+        if (res.status) {
+            setLSItem('access_token', res.data.accessToken);
+            delete res.data.accessToken;
+            dispatch(authActions.setRoles(res.data.roles));
+            delete res.data.roles;
+            dispatch(authActions.setCurrentUser(res.data));
             navigate('/admin');
         } else {
-            toast.error("Không đúng tên đăng nhập hoặc mật khẩu");
+            toast.error(res.message);
         }
+
+        /* let flag = 0;
+         arrUser.forEach((item) => {
+             if (item.username === formValues.username && item.password === formValues.password) {
+                 flag = item.id;
+             }
+         })
+ 
+         if (flag) {
+             const data = arrUser[flag - 1];
+ 
+             setLSItem('access_token', data.accessToken);
+             delete data.accessToken;
+             dispatch(authActions.setRoles(data.roles));
+             delete data.roles;
+             dispatch(authActions.setCurrentUser(data));
+             toast.success('Login successfully!');
+             navigate('/admin');
+         } else {
+             toast.error("Không đúng tên đăng nhập hoặc mật khẩu");
+         }*/
         // event.preventDefault();
         //  const data = new FormData(event.currentTarget);
         // console.log({
