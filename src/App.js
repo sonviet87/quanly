@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Login from "./features/auth/pages/Login";
 import PrivateRoute from "./components/Common/PrivteRoute";
-import DashBoard from "./features/admin/dashboard/DashBoard";
+import DashBoard from "./features/admin/dashboard/pages/DashBoard";
 import { store } from './app/store';
 import AuthFeature from "./features/auth";
 import { Provider } from "react-redux";

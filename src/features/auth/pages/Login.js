@@ -50,8 +50,8 @@ function Login() {
         })();
     });
     const handleSubmit = async (formValues) => {
-        const res = await userApi.login({
-            loginName: formValues.email,
+        /*const res = await userApi.login({
+            email: formValues.username,
             password: formValues.password,
         });
         if (res.status) {
@@ -63,28 +63,28 @@ function Login() {
             navigate('/admin');
         } else {
             toast.error(res.message);
-        }
+        }*/
 
-        /* let flag = 0;
-         arrUser.forEach((item) => {
-             if (item.username === formValues.username && item.password === formValues.password) {
-                 flag = item.id;
-             }
-         })
- 
-         if (flag) {
-             const data = arrUser[flag - 1];
- 
-             setLSItem('access_token', data.accessToken);
-             delete data.accessToken;
-             dispatch(authActions.setRoles(data.roles));
-             delete data.roles;
-             dispatch(authActions.setCurrentUser(data));
-             toast.success('Login successfully!');
-             navigate('/admin');
-         } else {
-             toast.error("Không đúng tên đăng nhập hoặc mật khẩu");
-         }*/
+        let flag = 0;
+        arrUser.forEach((item) => {
+            if (item.username === formValues.username && item.password === formValues.password) {
+                flag = item.id;
+            }
+        })
+
+        if (flag) {
+            const data = arrUser[flag - 1];
+
+            setLSItem('access_token', data.accessToken);
+            delete data.accessToken;
+            dispatch(authActions.setRoles(data.roles));
+            delete data.roles;
+            dispatch(authActions.setCurrentUser(data));
+            toast.success('Login successfully!');
+            navigate('/admin');
+        } else {
+            toast.error("Không đúng tên đăng nhập hoặc mật khẩu");
+        }
         // event.preventDefault();
         //  const data = new FormData(event.currentTarget);
         // console.log({

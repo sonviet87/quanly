@@ -21,7 +21,7 @@ function PrivateRoute({ children }) {
             if (!isLoggedIn) {
                 return navigate('/login');
             }
-            if (!selectUser) {
+            /*if (!selectUser) {
 
                 const res = await userApi.getUserInfo();
                 if (res.status) {
@@ -36,7 +36,7 @@ function PrivateRoute({ children }) {
                 return navigate('/login');
 
 
-            }
+            }*/
             setLoading(false);
         })();
     }, [navigate, selectUser, dispatch]);

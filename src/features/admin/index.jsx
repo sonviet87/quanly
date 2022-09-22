@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import DashBoard from './dashboard/DashBoard';
+import DashBoard from './dashboard/pages/DashBoard';
 
 
 const AdminFeature = () => {
