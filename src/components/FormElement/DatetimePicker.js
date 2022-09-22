@@ -12,7 +12,7 @@ export default function BasicDatePicker({ lable, ...props }) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ m: 2 }}>
             <SlytedDatetimePicker
-                size="small"
+
 
                 label={lable}
                 value={value}

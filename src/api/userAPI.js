@@ -11,7 +11,7 @@ const userApi = {
   },
   login: (params) => {
 
-    return axiosClient.post('/users/login-by-email', { params });
+    return axiosClient.post('/login-by-username', params);
   },
   getUser: () => {
     const url = '/user';

@@ -50,41 +50,48 @@ function Login() {
         })();
     });
     const handleSubmit = async (formValues) => {
-        /*const res = await userApi.login({
-            email: formValues.username,
+        const res = await userApi.login({
+            username: formValues.username,
             password: formValues.password,
         });
         if (res.status) {
-            setLSItem('access_token', res.data.accessToken);
-            delete res.data.accessToken;
-            dispatch(authActions.setRoles(res.data.roles));
-            delete res.data.roles;
-            dispatch(authActions.setCurrentUser(res.data));
-            navigate('/admin');
+
+            if (res.data.status) {
+                setLSItem('access_token', res.data.data.accessToken);
+                delete res.data.data.accessToken;
+                dispatch(authActions.setRoles(res.data.data.roles));
+                delete res.data.roles;
+                dispatch(authActions.setCurrentUser(res.data.data));
+                navigate('/admin');
+            } else {
+                toast.error(res.data.message);
+            }
+
+
         } else {
             toast.error(res.message);
-        }*/
-
-        let flag = 0;
-        arrUser.forEach((item) => {
-            if (item.username === formValues.username && item.password === formValues.password) {
-                flag = item.id;
-            }
-        })
-
-        if (flag) {
-            const data = arrUser[flag - 1];
-
-            setLSItem('access_token', data.accessToken);
-            delete data.accessToken;
-            dispatch(authActions.setRoles(data.roles));
-            delete data.roles;
-            dispatch(authActions.setCurrentUser(data));
-            toast.success('Login successfully!');
-            navigate('/admin');
-        } else {
-            toast.error("Không đúng tên đăng nhập hoặc mật khẩu");
         }
+
+        /* let flag = 0;
+         arrUser.forEach((item) => {
+             if (item.username === formValues.username && item.password === formValues.password) {
+                 flag = item.id;
+             }
+         })
+ 
+         if (flag) {
+             const data = arrUser[flag - 1];
+ 
+             setLSItem('access_token', data.accessToken);
+             delete data.accessToken;
+             dispatch(authActions.setRoles(data.roles));
+             delete data.roles;
+             dispatch(authActions.setCurrentUser(data));
+             toast.success('Login successfully!');
+             navigate('/admin');
+         } else {
+             toast.error("Không đúng tên đăng nhập hoặc mật khẩu");
+         }*/
         // event.preventDefault();
         //  const data = new FormData(event.currentTarget);
         // console.log({
