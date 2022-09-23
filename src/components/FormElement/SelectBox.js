@@ -5,10 +5,18 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import styled from '@emotion/styled';
+import { useController } from 'react-hook-form';
+import { FormHelperText } from '@mui/material';
 
 export default function BasicSelect({ name, label, control, options = [], ...inputProps }) {
 
-
+    const {
+        field: { onChange, value },
+        fieldState: { invalid, error },
+    } = useController({
+        name,
+        control,
+    });
 
     return (
 
@@ -16,9 +24,10 @@ export default function BasicSelect({ name, label, control, options = [], ...inp
             sx={{ minWidth: 120, marginBottom: '8px' }}
             fullWidth
             size="small"
+            error={invalid}
         >
             <InputLabel id={`select-${name}`}>{label}</InputLabel>
-            <SlytedSelect labelId={`select-${name}`} label={label} >
+            <SlytedSelect labelId={`select-${name}`} label={label} value={value} onChange={onChange}>
 
                 {options.map((row, i) => (
                     <MenuItem key={i} value={row.value}>
@@ -26,7 +35,7 @@ export default function BasicSelect({ name, label, control, options = [], ...inp
                     </MenuItem>
                 ))}
             </SlytedSelect>
-
+            {invalid && <FormHelperText>{error?.message}</FormHelperText>}
         </FormControl>
 
     );
