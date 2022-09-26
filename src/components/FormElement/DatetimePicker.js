@@ -6,9 +6,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styled from '@emotion/styled';
 import { useController } from 'react-hook-form';
-import { FormControl, FormHelperText } from '@mui/material';
+import { FormControl } from '@mui/material';
 
-export default function BasicDatePicker({ name, lableText, control, ...inputProps }) {
+export default function BasicDatePicker({ name, lableText, control }) {
     const {
         field,
         fieldState: { invalid, error },
@@ -22,7 +22,7 @@ export default function BasicDatePicker({ name, lableText, control, ...inputProp
         <FormControl>
             <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ m: 2 }}>
                 <SlytedDatetimePicker
-                    {...inputProps}
+
 
                     {...field}
                     label={lableText}

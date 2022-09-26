@@ -4,6 +4,7 @@ import DashBoardList from '../components/DashBoardList';
 import { Box } from '@mui/system';
 
 import managerApi from 'api/mangerAPI';
+import FileSaver from 'file-saver';
 
 const DashBoard = () => {
 
@@ -12,7 +13,7 @@ const DashBoard = () => {
         data: [],
         pagination: {
             total: 0,
-            current_page: 0,
+            current_page: 1
         },
     });
 
@@ -27,20 +28,32 @@ const DashBoard = () => {
         });
     };
 
+    const handleExportExel = (data) => {
+        (async () => {
+            setLoading(true);
+            const res = await managerApi.getExportExel(data);
+            if (res.status) {
+                FileSaver.saveAs(res.data, 'text.xlsx');
+            }
+            setLoading(false);
+        })();
+    }
+
     React.useEffect(() => {
         (async () => {
             setLoading(true);
             const res = await managerApi.getAll(filter);
-            console.log(res.data);
+            //console.log(res.data);
             if (res.status) {
                 setList(res.data.data);
             }
             setLoading(false);
         })();
     }, [filter]);
+
     return (
         <Box padding={3}>
-            <DashBoardFilter loading={loading} filter={filter} onSubmit={handleFilter} />
+            <DashBoardFilter loading={loading} filter={filter} onSubmit={handleFilter} onExport={handleExportExel} />
             <DashBoardList list={list.data}
                 pagination={list.pagination}
                 loading={loading}
