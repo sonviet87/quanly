@@ -18,7 +18,7 @@ const DashBoard = () => {
 
     const [filter, setFilter] = React.useState({
         per_page: 5,
-        page: 0,
+        page: 1,
     });
     const handleFilter = async (data) => {
         setFilter({

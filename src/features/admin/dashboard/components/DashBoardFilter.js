@@ -7,20 +7,21 @@ import BasicSelect from 'components/FormElement/SelectBox';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import dayjs from 'dayjs';
 
 const DashBoardFilter = ({ loading, filter, onSubmit }) => {
     const schema = yup.object().shape({
         typeAccount: yup.string().required('Vui lòng chọn phân loại tài khoản'),
         typeTransaccsion: yup.string().required('Vui lòng chọn phân loại giao dịch'),
-        startDay: yup.string().required('Vui lòng chọn ngày bắt đầu'),
-        endDay: yup.string().required('Vui lòng chọn ngày kết thúc'),
+        startDay: yup.string().required('Vui lòng chọn ngày bắt đầu').nullable(),
+        endDay: yup.string().required('Vui lòng chọn ngày kết thúc').nullable(),
     });
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             typeAccount: "",
             typeTransaccsion: "",
-            startDay: Date.now(),
-            endDay: Date.now(),
+            startDay: null,
+            endDay: null,
         },
         resolver: yupResolver(schema),
     });
@@ -29,20 +30,20 @@ const DashBoardFilter = ({ loading, filter, onSubmit }) => {
         console.log(formValues)
         if (!onSubmit) return;
 
-        //await onSubmit(formValues);
+        await onSubmit(formValues);
     };
 
     return (
         <Box component="form" alignItems="center" onSubmit={handleSubmit(handleFormSubmit)}>
-            <BasicDatePicker lable="Từ ngày" name="startDay" control={control} />
-            <BasicDatePicker lable="Đến ngày" name="endDay" control={control} />
+            <BasicDatePicker lableText="Từ ngày" name="startDay" control={control} />
+            <BasicDatePicker lableText="Đến ngày" name="endDay" control={control} />
             <FormControl sx={{ minWidth: 220 }}>
                 <BasicSelect
                     name="typeTransaccsion"
                     label="Phân loại giao dịch"
                     control={control}
                     options={[
-                        { label: 'Tất cả', value: '1' },
+                        { label: 'Tất cả', value: '0' },
                         { label: 'Công ty thành viên', value: '2' },
                         { label: 'Tài xế', value: '3' },
                         { label: 'Lãi xuất ngân hàng', value: '4' },
@@ -57,9 +58,9 @@ const DashBoardFilter = ({ loading, filter, onSubmit }) => {
                     label="Phân loại Tài khoản"
                     control={control}
                     options={[
-                        { label: 'Tất cả', value: '1' },
-                        { label: 'Tài khoản nạp tiền chuyên dụng', value: '2' },
-                        { label: 'Tài khoản rút tiền chuyên dụng', value: '3' },
+                        { label: 'Tất cả', value: '0' },
+                        { label: 'Tài khoản nạp tiền chuyên dụng', value: '100202034548' },
+                        { label: 'Tài khoản rút tiền chuyên dụng', value: '100202034548' },
 
                     ]}
                 />

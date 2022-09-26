@@ -8,7 +8,7 @@ import styled from '@emotion/styled';
 import { useController } from 'react-hook-form';
 import { FormControl, FormHelperText } from '@mui/material';
 
-export default function BasicDatePicker({ name, label, control, ...inputProps }) {
+export default function BasicDatePicker({ name, lableText, control, ...inputProps }) {
     const {
         field,
         fieldState: { invalid, error },
@@ -23,11 +23,15 @@ export default function BasicDatePicker({ name, label, control, ...inputProps })
             <LocalizationProvider dateAdapter={AdapterDayjs} sx={{ m: 2 }}>
                 <SlytedDatetimePicker
                     {...inputProps}
-                    label={label}
+
                     {...field}
-                    renderInput={(params) => <TextField {...params} />}
+                    label={lableText}
+                    renderInput={(params) => <TextField {...params} helperText={error?.message}
+                        error={!!error} />}
+                // format="DD-MM-YYYY"
+
                 />
-                {invalid && <FormHelperText>{error?.message}</FormHelperText>}
+
             </LocalizationProvider>
         </FormControl>
     );
