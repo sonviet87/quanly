@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Container from '@mui/material/Container';
 import { FormLogin } from '../styles/StyledLogin';
 import LoginForm from '../components/LoginForm';
-import { Grid } from '@mui/material';
+import { Box, Grid, LinearProgress } from '@mui/material';
 
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -15,41 +15,41 @@ import userApi from 'api/userAPI';
 
 function Login() {
 
-    const arrUser = [
-        {
-            id: 1,
-            username: 'admin',
-            email: 'admin@gmail.com',
-            password: '123456',
-            role: 1,
-            accessToken: 'fdafsoaifudoasjfklaioi6548798jfoi'
-        }, {
-            id: 2,
-            username: 'user',
-            email: 'user@gmail.com',
-            password: '123456',
-            role: 1,
-            accessToken: 'fpôiijfkldsfsoi6548798jfoi'
-        }
-    ]
-
-
+    // const arrUser = [
+    //     {
+    //         id: 1,
+    //         username: 'admin',
+    //         email: 'admin@gmail.com',
+    //         password: '123456',
+    //         role: 1,
+    //         accessToken: 'fdafsoaifudoasjfklaioi6548798jfoi'
+    //     }, {
+    //         id: 2,
+    //         username: 'user',
+    //         email: 'user@gmail.com',
+    //         password: '123456',
+    //         role: 1,
+    //         accessToken: 'fpôiijfkldsfsoi6548798jfoi'
+    //     }
+    // ]
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [loading, setLoading] = React.useState(false);
+
 
     useEffect(() => {
 
         (async () => {
             const accessToken = getLSItem('access_token');
             const isLoggedIn = Boolean(accessToken);
-            console.log("isLoggedIn", isLoggedIn)
-            console.log("accessToken", accessToken)
+
             if (isLoggedIn) {
                 navigate('/admin');
             }
         })();
     });
     const handleSubmit = async (formValues) => {
+        setLoading(true);
         const res = await userApi.login({
             username: formValues.username,
             password: formValues.password,
@@ -66,7 +66,7 @@ function Login() {
             } else {
                 toast.error(res.data.message);
             }
-
+            setLoading(false);
 
         } else {
             toast.error(res.message);
@@ -101,6 +101,11 @@ function Login() {
     };
     return (
         <Container>
+            {loading && (
+                <Box >
+                    <LinearProgress />
+                </Box>
+            )}
             <Grid
                 container
                 spacing={2}

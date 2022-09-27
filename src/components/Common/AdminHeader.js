@@ -1,13 +1,19 @@
 import { AccountCircle } from '@mui/icons-material';
 import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { authActions } from 'features/auth/authSlice';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { removeLSItem } from 'utils';
 
 // import { Container } from './styles';
 
 function AdminHeader() {
 
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
 
@@ -19,7 +25,12 @@ function AdminHeader() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+    const handleLogout = () => {
+        dispatch(authActions.logout());
+        removeLSItem('access_token');
+        removeLSItem('typeLogin');
+        navigate('/login');
+    };
     return (
         <AppBar position="static">
             <Toolbar>
@@ -54,8 +65,8 @@ function AdminHeader() {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+
                     </Menu>
                 </div>
 

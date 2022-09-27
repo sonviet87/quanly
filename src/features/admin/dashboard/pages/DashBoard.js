@@ -5,6 +5,7 @@ import { Box } from '@mui/system';
 
 import managerApi from 'api/mangerAPI';
 import FileSaver from 'file-saver';
+import { CircularProgress, LinearProgress } from '@mui/material';
 
 const DashBoard = () => {
 
@@ -13,7 +14,7 @@ const DashBoard = () => {
         data: [],
         pagination: {
             total: 0,
-            current_page: 1
+            current_page: 0
         },
     });
 
@@ -52,7 +53,13 @@ const DashBoard = () => {
     }, [filter]);
 
     return (
+
         <Box padding={3}>
+            {loading && (
+                <Box sx={{ display: 'flex', height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', position: 'absolute', top: '0', left: '0' }}>
+                    <CircularProgress size={100} />
+                </Box>
+            )}
             <DashBoardFilter loading={loading} filter={filter} onSubmit={handleFilter} onExport={handleExportExel} />
             <DashBoardList list={list.data}
                 pagination={list.pagination}

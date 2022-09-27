@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/system';
 import BasicDatePicker from 'components/FormElement/DatetimePicker';
 import { Button, FormControl } from '@mui/material';
@@ -7,7 +6,8 @@ import BasicSelect from 'components/FormElement/SelectBox';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import dayjs from 'dayjs';
+
+
 
 const DashBoardFilter = ({ loading, filter, onSubmit, onExport }) => {
     const schema = yup.object().shape({
@@ -16,6 +16,7 @@ const DashBoardFilter = ({ loading, filter, onSubmit, onExport }) => {
         startDay: yup.string().required('Vui lòng chọn ngày bắt đầu').nullable(),
         endDay: yup.string().required('Vui lòng chọn ngày kết thúc').nullable(),
     });
+
     const { control, handleSubmit, reset } = useForm({
         defaultValues: {
             typeAccount: "",
@@ -27,7 +28,7 @@ const DashBoardFilter = ({ loading, filter, onSubmit, onExport }) => {
     });
 
     const handleFormSubmit = async (formValues) => {
-        console.log(formValues)
+
         if (!onSubmit) return;
 
         await onSubmit(formValues);
@@ -40,6 +41,7 @@ const DashBoardFilter = ({ loading, filter, onSubmit, onExport }) => {
         <Box component="form" alignItems="center" onSubmit={handleSubmit(handleFormSubmit)}>
             <BasicDatePicker lableText="Từ ngày" name="startDay" control={control} />
             <BasicDatePicker lableText="Đến ngày" name="endDay" control={control} />
+
             <FormControl sx={{ minWidth: 220 }}>
                 <BasicSelect
                     name="typeTransaccsion"

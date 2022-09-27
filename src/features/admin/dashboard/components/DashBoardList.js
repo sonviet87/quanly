@@ -1,50 +1,72 @@
 import React from 'react';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
 import { TablePaginationActions } from 'components/Common/TablePaginationActions';
 import { StyledTableCell, StyledTableCellRow } from '../styles/StyledDashboard';
+import moment from 'moment';
 
-function createData(name, calories, fat, carbs, protein, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10) {
-    return { name, calories, fat, carbs, protein, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10 };
-}
+// function createData(name, calories, fat, carbs, protein, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10) {
+//     return { name, calories, fat, carbs, protein, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10 };
+// }
 
-const rows = [
-    createData('Frozen fds', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Ice cresssam sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Gingerfbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Frozen555 yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4),
-    createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4),
-    createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
-];
+// const rows = [
+//     createData('Frozen fds', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Ice cresssam sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Gingerfbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Frozen555 yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4),
+//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4),
+//     createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4),
+//     createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4),
+//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 2, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 3, 4, 4, 4, 4, 4, 4),
+//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4),
+//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Eclair', 262, 16.0, 24, 6.0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Cupcake', 305, 3.7, 67, 4.3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+//     createData('Gingerbread', 356, 16.0, 49, 3.9, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4),
+// ];
 
 function DashBoardList({ list, pagination, filter, onFilter }) {
     //const [page, setPage] = React.useState(0);
     //const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+    const changeTypetoString = (text) => {
+        let temp = 'Tất cả';
+        switch (text) {
+            case '1': temp = "Công ty thành viên";
+                break;
+            case '2': temp = "Tài xế";
+                // code block
+                break;
+            case '3': temp = "Lãi suất ngân hàng";
 
+                break;
+            case '4': temp = "Phí ngân hàng";
+
+                break;
+            case '5': temp = "Khác";
+
+                break;
+            default:
+            // code block
+        }
+        return temp;
+    }
 
     const handleChangePage = (event, newPage) => {
         //setPage(newPage);
         onFilter({
-            page: newPage,
+            page: newPage + 1,
         });
 
     };
@@ -53,7 +75,7 @@ function DashBoardList({ list, pagination, filter, onFilter }) {
         //setRowsPerPage(parseInt(event.target.value, 10));
         //setPage(0);
         onFilter({
-            page: 1,
+            page: 0,
             per_page: parseInt(event.target.value, 10),
         });
     };
@@ -91,8 +113,8 @@ function DashBoardList({ list, pagination, filter, onFilter }) {
                     {list.length > 0 &&
                         list.map((row) => (
                             <TableRow key={row.code_driver} >
-                                <StyledTableCellRow component="th" scope="row">  {row.created_at} </StyledTableCellRow>
-                                <StyledTableCellRow align="center">{row.type_transacction}</StyledTableCellRow>
+                                <StyledTableCellRow component="th" scope="row">  {moment(row.created_at).format('DD-MM-YYYY HH:mm:ss')} </StyledTableCellRow>
+                                <StyledTableCellRow align="center">{changeTypetoString(row.type_transacction)}</StyledTableCellRow>
                                 <StyledTableCellRow align="center">{row.mainjisa}</StyledTableCellRow>
                                 <StyledTableCellRow align="center">{row.namejisa}</StyledTableCellRow>
                                 <StyledTableCellRow align="center">{row.agencyjisa}</StyledTableCellRow>
@@ -114,17 +136,17 @@ function DashBoardList({ list, pagination, filter, onFilter }) {
                 <TableFooter>
                     <TableRow>
                         <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, { label: 'Tât cả', value: -1 }]}
+                            rowsPerPageOptions={[5, 10, 25, { label: 'Tất cả', value: -1 }]}
                             colSpan={15}
                             count={pagination.total}
                             rowsPerPage={filter.per_page}
-                            page={pagination.current_page ? pagination.current_page : 0}
-                            SelectProps={{
-                                inputProps: {
-                                    'aria-label': 'Số dòng trên trang',
-                                },
-                                native: true,
-                            }}
+                            page={pagination.current_page ? pagination.current_page - 1 : 0}
+                            labelRowsPerPage={"Số phần tử trên trang"}
+                            labelDisplayedRows={
+                                ({ from, to, count }) => {
+                                    return '' + from + '-' + to + ' của ' + count + ' dòng'
+                                }
+                            }
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                             ActionsComponent={TablePaginationActions}

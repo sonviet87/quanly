@@ -4,7 +4,7 @@ import React from 'react';
 // import { Container } from './styles';
 
 function AdminFooter() {
-    return (<Box><Typography textAlign="center" fontSize={12}>copyright © IConSys</Typography></Box>);
+    return (<Box><Typography textAlign="center" fontSize={12}>copyright © ICONSYS</Typography></Box>);
 }
 
 export default AdminFooter;
